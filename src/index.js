@@ -32,7 +32,7 @@ app.use(auth)
 
 //DB config
 try {
-    const uri = 'mongodb://localhost:27017/test'; //update db
+    const uri = 'mongodb://localhost:27017/techStore'; //update db
     await mongoose.connect(uri);
     console.log('DB connected successfully');
 } catch (error) {
