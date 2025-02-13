@@ -1,8 +1,12 @@
 import { Router } from 'express';
+import deviceService from '../services/device-service.js';
 
 const homeController = Router();
 
-homeController.get('/', (req, res) => {
+homeController.get('/', async (req, res) => {
+    const devices = await deviceService.getNewest();
+    console.log(devices);
+
     res.render('home');
 });
 

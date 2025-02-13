@@ -35,7 +35,7 @@ const deviceSchema = new Schema(
             required: true,
         },
         price: {
-            type: number,
+            type: Number,
             required: true,
         },
         color: {
@@ -57,9 +57,9 @@ const deviceSchema = new Schema(
         owner: {
             type: Types.ObjectId,
             ref: 'User',
-        }
-
-    }
+        },
+    },
+    {timestamps: true},
 );
 
 const Device = model('Device', deviceSchema);
