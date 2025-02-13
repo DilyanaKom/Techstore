@@ -5,7 +5,7 @@ import { isAuth } from '../middlewares/auth-middleware.js';
 
 const deviceController = Router();
 
-deviceController.get('/create', (req, res) => {
+deviceController.get('/create', isAuth, (req, res) => {
     res.render('devices/create');
 });
 
