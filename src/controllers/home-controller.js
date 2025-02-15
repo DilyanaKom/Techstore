@@ -7,7 +7,7 @@ homeController.get('/', async (req, res) => {
     const devices = await deviceService.getNewest();
     //console.log(devices);
 
-    res.render('home');
+    res.render('home', {devices});
 });
 
 export default homeController;
