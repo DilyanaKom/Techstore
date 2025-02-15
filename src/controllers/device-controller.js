@@ -33,7 +33,15 @@ deviceController.post('/create', async (req, res) => {
 });
 
 deviceController.get('/catalog', async (req, res) => {
-    res.render('devices/catalog');
+
+    try {
+        const devices = await deviceService.getAll();
+        res.render('devices/catalog', {devices});
+        
+    } catch (error) {
+        console.log(error.message); 
+    }
+    
 
 });
 
