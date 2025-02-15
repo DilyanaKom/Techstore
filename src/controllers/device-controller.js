@@ -86,7 +86,40 @@ deviceController.get('/:deviceId/delete', async (req, res) => {
 
     await deviceService.delete(deviceId);
     res.redirect('/');
-})
+});
+
+deviceController.get('/:deviceId/edit', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const device = await deviceService.getOne(deviceId);
+
+    if(!device.owner?.equals(req.user?.id)){
+        return res.redirect('/404');
+    };
+
+    res.render('devices/edit', {device, title: 'Edit'})
+});
+
+deviceController.post('/:deviceId/edit', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const deviceDetails = req.body;
+
+    try {
+        await deviceService.update(deviceId, isAuth, deviceDetails);
+        res.render('devices/details', {device: deviceDetails});
+    } catch (error) {
+        const errors = getErrorMessage(error);
+        return res.render('devices/edit', {
+            error: errors,
+            device: deviceDetails,
+            title: 'Edit',
+        });
+        
+    }
+
+
+
+});
+
 
 
 export default deviceController;

@@ -45,7 +45,11 @@ export default {
     },
     delete(id){
         return Device.findByIdAndDelete(id);
-    }
+    },
+    update(id, deviceData){
+        return Device.findByIdAndUpdate(id, deviceData, {runValidators: true});
+
+    },
 
 }
 
