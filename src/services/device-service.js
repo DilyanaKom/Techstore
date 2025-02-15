@@ -1,5 +1,5 @@
 //TODO 
-
+import mongoose from 'mongoose';
 import Device from '../models/Device.js';
 import { CustomValidationError } from '../utils/error-utils.js';
 
@@ -30,7 +30,20 @@ export default {
     getOne(id){
         const result = Device.findById(id);
         return result;
+    },
+    async getPreferredList(id){
+        const result = (await Device.findById(id).select('preferredList -_id')).preferredList || [];
+        return result;
+
+    },
+    async addUserToPreferredList(deviceId, userId){
+        const updatedDevice = await Device.findByIdAndUpdate(deviceId,
+            { $addToSet: {preferredList: userId}},
+            {new: true});
+        return updatedDevice?.preferredList || [];
+
     }
+
 }
 
 

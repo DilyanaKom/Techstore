@@ -37,7 +37,7 @@ authController.post('/register', async (req, res) => {
     try {
        const token =  await authService.register(userData);
        res.cookie('auth', token, {httpOnly: true})
-        res.render('/', {title: 'Register'});
+        res.render('home', {title: 'Register'});
     } catch (error) {
         const errors = getErrorMessage(error);
         return res.render('auth/register', {

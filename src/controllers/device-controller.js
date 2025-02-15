@@ -45,8 +45,36 @@ deviceController.get('/catalog', async (req, res) => {
 
 });
 deviceController.get('/:deviceId/details', async (req, res) => {
-    res.render('devices/details');
-})
+    const deviceId = req.params.deviceId;
+    const device = await deviceService.getOne(deviceId);
+    const user = req.user;
+    if(!user){
+        return res.render('devices/details', {device});
+    }
+    const preferredBy = await deviceService.getPreferredList(deviceId);
+    const hasPreferred = preferredBy.includes(req.user.id);
+    const isCreator = user && device.owner?.toString() === req.user.id;
+
+    res.render('devices/details', {device, user, isCreator, hasPreferred});
+});
+
+deviceController.get('/:deviceId/prefer', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const user = req.user;
+    const device = await deviceService.getOne(deviceId);
+    const isCreator = user && device.owner?.toString() === req.user.id;
+    if(!user || isCreator){
+            return res.render('404');
+    }
+    const preferredBy = await deviceService.getPreferredList(deviceId);
+    const hasPreferred = preferredBy.includes(req.user.id);
+
+    if(hasPreferred){
+        return res.render('404');
+    }
+     await deviceService.addUserToPreferredList(deviceId, req.user.id);
+     res.redirect(`/devices/${deviceId}/details`);
+});
 
 
 export default deviceController;
