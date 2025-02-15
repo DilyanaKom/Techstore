@@ -22,6 +22,10 @@ export default {
         const result = Device.create({...deviceData, owner: ownerId} );
         return result;
 
+    },
+    getAll(){
+        const result = Device.find();
+        return result;
     }
 }
 

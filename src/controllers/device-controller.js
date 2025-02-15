@@ -32,4 +32,10 @@ deviceController.post('/create', async (req, res) => {
 
 });
 
+deviceController.get('/catalog', async (req, res) => {
+    res.render('devices/catalog');
+
+});
+
+
 export default deviceController;
