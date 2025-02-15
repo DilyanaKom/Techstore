@@ -15,7 +15,7 @@ deviceController.post('/create', async (req, res) => {
 
     try {
         await deviceService.createDevice(deviceData, userId);
-        res.render('devices/catalog');
+        return res.redirect('/devices/catalog');
     } catch (error) {
         
         const errors = getErrorMessage(error);
