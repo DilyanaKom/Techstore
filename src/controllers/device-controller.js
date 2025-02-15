@@ -44,6 +44,9 @@ deviceController.get('/catalog', async (req, res) => {
     
 
 });
+deviceController.get('/:deviceId/details', async (req, res) => {
+    res.render('devices/details');
+})
 
 
 export default deviceController;

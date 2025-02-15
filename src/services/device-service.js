@@ -26,6 +26,10 @@ export default {
     getAll(){
         const result = Device.find();
         return result;
+    },
+    getOne(id){
+        const result = Device.findById(id);
+        return result;
     }
 }
 
