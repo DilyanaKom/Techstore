@@ -2,6 +2,7 @@ import { Router } from 'express';
 import deviceService from '../services/device-service.js';
 import { getErrorMessage } from '../utils/error-utils.js';
 import { isAuth } from '../middlewares/auth-middleware.js';
+import mongoose from 'mongoose';
 
 const deviceController = Router();
 
@@ -28,7 +29,6 @@ deviceController.post('/create', async (req, res) => {
     }
     
 
-    //TODO show message if failure and keep data
 
 });
 
@@ -119,6 +119,15 @@ deviceController.post('/:deviceId/edit', async (req, res) => {
 
 
 });
+
+deviceController.get('/profile', async (req, res) => {
+    const userId = req.user.id;
+    const devicesCreated = await deviceService.getAll({owner: new mongoose.Types.ObjectId(userId)});
+    const devicesPreferred = await deviceService.getAll({preferredList: userId});
+    
+
+    res.render('devices/profile', {user: req.user, devicesCreated, devicesPreferred});
+})
 
 
 

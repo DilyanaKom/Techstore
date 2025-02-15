@@ -1,0 +1,54 @@
+
+
+    <section class="profile-hero">
+        <div class="container">
+            <h2>User Profile</h2>
+            <p>Welcome back, <span id="username">{{user.name}}</span> <strong id="email">( {{user.email}} )</strong></p>
+        </div>
+    </section>
+
+    <section class="created-laptops">
+        <div class="container">
+            <h3>Created Laptops</h3>
+           
+            <div class="laptop-list">
+                 {{#if devicesCreated}}
+                 {{#each devicesCreated}}
+                <div class="laptop-item">
+                    <img src="{{this.image}}"
+                        alt="Laptop">
+                    <p><strong>Brand:</strong> {{this.brand}}</p>
+                    <p><strong>Model:</strong> {{this.model}}</p>
+                    <a href="/devices/{{this.id}}/details" class="btn">View Details</a>
+
+                <!-- Add more laptop items as needed -->  
+            </div>
+            {{/each}}
+            {{else}}
+            <p class="no-post">You haven't created a post yet</p>
+            {{/if}}
+        </div>
+    </section>
+
+    <section class="preferred-laptops">
+        <div class="container">
+            <h3>Preferred Laptops</h3>
+            <div class="laptop-list">
+                {{#if devicesPreferred}}
+                {{#each devicesPreferred}}
+                <div class="laptop-item">
+                    <img src="{{this.image}}"
+                        alt="Laptop">
+                    <p><strong>Brand:</strong> {{this.brand}}</p>
+                    <p><strong>Model:</strong> {{this.model}}</p>
+                    <a href="/devices/{{this.id}}/details" class="btn">View Details</a>
+                </div>
+                {{/each}}
+
+
+            </div>
+            {{else}}
+             <p class="no-post">You haven't preferred any devices yet</p>
+             {{/if}}
+        </div>
+    </section>

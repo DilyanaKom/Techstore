@@ -54,6 +54,10 @@ authController.get('/logout', isAuth, (req, res) => {
     res.clearCookie('auth');
     res.redirect('/');
 
+});
+
+authController.get('/profile', async (req, res) => {
+    res.render('auth/profile', {user: req.user});
 })
 
 

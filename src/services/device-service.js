@@ -23,8 +23,8 @@ export default {
         return result;
 
     },
-    getAll(){
-        const result = Device.find();
+    getAll(fitler = {}){
+        const result = Device.find(fitler);
         return result;
     },
     getOne(id){
