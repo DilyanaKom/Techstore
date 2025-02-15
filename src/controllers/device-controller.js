@@ -76,5 +76,17 @@ deviceController.get('/:deviceId/prefer', async (req, res) => {
      res.redirect(`/devices/${deviceId}/details`);
 });
 
+deviceController.get('/:deviceId/delete', async (req, res) => {
+    const deviceId = req.params.deviceId;
+    const device = await deviceService.getOne(deviceId);
+
+    if(!device.owner?.equals(req.user?.id)){
+        return res.redirect('/404');
+    };
+
+    await deviceService.delete(deviceId);
+    res.redirect('/');
+})
+
 
 export default deviceController;

@@ -42,6 +42,9 @@ export default {
             {new: true});
         return updatedDevice?.preferredList || [];
 
+    },
+    delete(id){
+        return Device.findByIdAndDelete(id);
     }
 
 }
